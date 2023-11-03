@@ -94,8 +94,9 @@ updates after pressing a key) will cause rapid changes in brightness.
 # How do I update?
 
 Open a terminal where you cloned the repo.
+
 ```bash
-git pull 
+git pull
 make all && sudo make install
 ```
 
@@ -119,9 +120,9 @@ You can overwrite this by exporting XCURSOR_SIZE to a different value with `env`
 
 You can also try running `gsettings set org.gnome.desktop.interface cursor-theme 'theme-name'` or adding it after `exec-once=` in your config.
 
-If you do not want to install a GTK settings editor, change the config files according to the 
-[XDG specification (Arch Wiki link)](https://wiki.archlinux.org/title/Cursor_themes#Configuration). 
-Make sure to also edit `~/.config/gtk-4.0/settings.ini` and `~/.gtkrc-2.0` if _not_ using a tool 
+If you do not want to install a GTK settings editor, change the config files according to the
+[XDG specification (Arch Wiki link)](https://wiki.archlinux.org/title/Cursor_themes#Configuration).
+Make sure to also edit `~/.config/gtk-4.0/settings.ini` and `~/.gtkrc-2.0` if _not_ using a tool
 (like `nwg-look`).
 
 # GTK Settings no work / whatever
@@ -142,7 +143,7 @@ Waybar has a set of caveats or settings that you need to be aware of. See
 
 Using the window rules to assign apps to workspace you can open a bunch of
 applications on various workspaces. The following method will start these apps
-silently (i.e.  without the flickering from workspace to workspace).
+silently (i.e. without the flickering from workspace to workspace).
 
 Put the following in your `hyprland.conf`: (example)
 
@@ -221,6 +222,7 @@ launched with `exec-once` should fix all issues. Adjust the sleep durations to t
 See [Environment Variables](../Configuring/Environment-variables)
 
 The `env` keyword is used for this purpose. For example:
+
 ```ini
 env = XDG_CURRENT_DESKTOP,Hyprland
 ```
@@ -230,7 +232,6 @@ env = XDG_CURRENT_DESKTOP,Hyprland
 The middle-click paste action pastes from a separate buffer (primary buffer) than what the regular clipboard uses (clipboard buffer). Since the primary buffer is unrelated to the clipboard buffer, it's easy to simply keep the primary buffer empty, allowing the middle-click action to retain the rest of its functionality without having anything to paste. Run the following command (in your config with `exec-once`, for example) to achieve this:
 
 `wl-paste -p --watch wl-copy -p ''` (`wl-paste -p --watch` watches for changes to the primary buffer, `wl-copy -p ''` clears the primary buffer)
-
 
 Alternatively, you can simply intercept the middle-click action all together, via hyprland binds for example. The drawbacks to this solution are that 1. it disables the rest of the functionality of the middle-click action, such as auto scroll, closing browser tabs, etc., and 2. many applications (such as kitty) manually intercept the middle-click events and bind them to paste from the primary buffer themselves, bypassing the solution altogether. For this solution, add this bind to your config:
 
@@ -243,10 +244,10 @@ It's heavily advised to use `full` regardless of anything.
 
 **_Useful Optimizations_**:
 
-* `decoration:blur = false` and `decoration:drop_shadow = false` to disable
-   fancy but battery hungry effects.
+- `decoration:blur = false` and `decoration:drop_shadow = false` to disable
+  fancy but battery hungry effects.
 
-* `misc:vfr = true`, since it'll lower the amount of sent frames when nothing is happening on-screen.
+- `misc:vfr = true`, since it'll lower the amount of sent frames when nothing is happening on-screen.
 
 # How to fix games with window dancing?
 
@@ -259,12 +260,15 @@ See [The XDPH Page](../Useful-Utilities/Hyprland-desktop-portal).
 You most likely have multiple portal impls / an impl is failing to launch.
 
 # My screenshot utilities won't work with multiple screens
+
 Some programs like flameshot (currently) has limited wayland support so on most Wayland compositors, you will have to do few tweaks.
 For Hyprland, you can add these window rules to your config to make said programs work with both of your screens.
+
 ```windowrulev2=float,title:^(flameshot)
 windowrulev2=move 0 0,title:^(flameshot)
 windowrulev2=nofullscreenrequest,title:^(flameshot)
 ```
+
 # I cannot bind SUPER as my mod key on my laptop
 
 Many laptops have a built-in function to toggle `SUPER` between single key press mode and hold mode. This is usually indicated by a padlock on the `SUPER` key.
@@ -291,3 +295,7 @@ set `MOD` and `KEY` to desired values.
 By pressing the selected combo you will enter a mode where hyprland ignores your keybinds and passes them on to the vm.
 
 Then, pressing `SUPER + Escape` will leave that mode.
+
+# Low FPS on intel iGPU with TLP
+
+The TLP defaults are rather agressive, setting `INTEL_GPU_MIN_FREQ_ON_AC` and/or `INTEL_GPU_MIN_FREQ_ON_BAT` in `/etc/tlp.conf` to something slightly higer (e.g. to 500 from 300) will reduce stutter significantly or in the best case remove it completly.

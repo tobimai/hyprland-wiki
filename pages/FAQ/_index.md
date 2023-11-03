@@ -94,7 +94,6 @@ updates after pressing a key) will cause rapid changes in brightness.
 # How do I update?
 
 Open a terminal where you cloned the repo.
-
 ```bash
 git pull
 make all && sudo make install
@@ -143,7 +142,7 @@ Waybar has a set of caveats or settings that you need to be aware of. See
 
 Using the window rules to assign apps to workspace you can open a bunch of
 applications on various workspaces. The following method will start these apps
-silently (i.e. without the flickering from workspace to workspace).
+silently (i.e.  without the flickering from workspace to workspace).
 
 Put the following in your `hyprland.conf`: (example)
 
@@ -203,6 +202,7 @@ exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRE
 Make sure that your portals launch _after_ this gets executed. For some people,
 they might launch before that has happened.
 
+
 In such cases, a script like this:
 
 ```bash
@@ -244,8 +244,8 @@ It's heavily advised to use `full` regardless of anything.
 
 **_Useful Optimizations_**:
 
-- `decoration:blur = false` and `decoration:drop_shadow = false` to disable
-  fancy but battery hungry effects.
+- * `decoration:blur = false` and `decoration:drop_shadow = false` to disable
+   fancy but battery hungry effects.
 
 - `misc:vfr = true`, since it'll lower the amount of sent frames when nothing is happening on-screen.
 
@@ -260,10 +260,8 @@ See [The XDPH Page](../Useful-Utilities/Hyprland-desktop-portal).
 You most likely have multiple portal impls / an impl is failing to launch.
 
 # My screenshot utilities won't work with multiple screens
-
 Some programs like flameshot (currently) has limited wayland support so on most Wayland compositors, you will have to do few tweaks.
 For Hyprland, you can add these window rules to your config to make said programs work with both of your screens.
-
 ```windowrulev2=float,title:^(flameshot)
 windowrulev2=move 0 0,title:^(flameshot)
 windowrulev2=nofullscreenrequest,title:^(flameshot)
